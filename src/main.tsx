@@ -1,10 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./app/App.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+import GlobalStyles from "./styles/global.ts";
+import FontStyles from "./styles/fontStyles.ts";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <FontStyles />
     <App />
-  </React.StrictMode>,
-)
+    <GlobalStyles />
+  </React.StrictMode>
+);
