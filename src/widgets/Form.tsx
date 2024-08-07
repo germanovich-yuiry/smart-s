@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Button as MuiButton } from "@mui/material";
 import MultyInput from "../shared/ui/MultyInput";
+import Divider from "../shared/ui/Divider";
 
-const Divider = styled.div`
+// Стили для кнопки
+const StyledButton = styled(MuiButton)`
+  height: 48px;
+  width: 100%;
+`;
 
-    height: 0.5px;
-    background-color: black;
-    opacity: 20%;
-    margin-bottom: 28px;
-  }`;
 const FormContainer = styled.div`
   width: 98%;
   max-width: 800px;
@@ -59,9 +59,6 @@ const FormContainer = styled.div`
       letter-spacing: 0.4px;
       margin-bottom: 18px;
     }
-    .button {
-      width: 100%;
-    }
   }
 
   @media screen and (min-width: 641px) {
@@ -74,7 +71,7 @@ const FormContainer = styled.div`
     .two-inner {
       display: inline-block;
       width: 100%;
-      &: first-child {
+      &:first-child {
         margin-right: 30px;
       }
     }
@@ -159,7 +156,6 @@ const Form = () => {
 
         <div className="one">
           <p className="text-label">Bio</p>
-
           <MultyInput label={"Bio"} rows="5" />
         </div>
         <Divider />
@@ -201,14 +197,9 @@ const Form = () => {
             </a>
           </div>
 
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{ height: "48px" }}
-            className="button"
-          >
+          <StyledButton variant="contained" className="button">
             Save
-          </Button>
+          </StyledButton>
         </div>
       </form>
     </FormContainer>
