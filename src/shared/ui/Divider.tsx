@@ -4,7 +4,7 @@ const StyledDivider = styled.div`
   height: 0.5px;
   background-color: black;
   opacity: 20%;
-  margin: 28px 0;
+  margin-bottom: 28px;
 `;
 const Divider = () => {
   return <StyledDivider />;
