@@ -1,14 +1,14 @@
-import type { FC } from "react"
-import { useEffect } from "react"
+import type { FC } from "react";
+import { useEffect } from "react";
 
-import styled from "styled-components"
-import { createPortal } from "react-dom"
+import styled from "styled-components";
+import { createPortal } from "react-dom";
 
 type Props = {
-  children: React.ReactNode
-  open: boolean
-  onClose: () => void
-}
+  children: React.ReactNode;
+  open: boolean;
+  onClose: () => void;
+};
 
 const OverlayContainer = styled.div`
   position: fixed;
@@ -18,10 +18,10 @@ const OverlayContainer = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(128, 128, 128, 1);
+  background-color: white;
   opacity: 1;
-  z-index: 1;
-`
+  z-index: 2;
+`;
 
 const CloseButton = styled.button`
   background: transparent;
@@ -31,34 +31,35 @@ const CloseButton = styled.button`
   top: 10px;
   right: 10px;
   cursor: pointer;
-  z-index: 2;
-  color: white;
-  text-shadow: 1px 1px 8px white;
-`
+  z-index: 3;
+  color: blue;
+
+  opacity: 80%;
+`;
 
 const PortalModal: FC<Props> = ({ children, open, onClose }) => {
-  const element = document.getElementById("modal-root")!
+  const element = document.getElementById("modal-root")!;
 
   const Overlay: FC<{ children: React.ReactNode }> = ({ children }) => {
     useEffect(() => {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
       return () => {
-        document.body.style.overflow = "auto"
-      }
-    }, [])
+        document.body.style.overflow = "auto";
+      };
+    }, []);
 
     return (
       <OverlayContainer>
         <CloseButton onClick={onClose}>&times;</CloseButton>
         {children}
       </OverlayContainer>
-    )
-  }
+    );
+  };
 
   if (open) {
-    return createPortal(<Overlay>{children}</Overlay>, element)
+    return createPortal(<Overlay>{children}</Overlay>, element);
   }
-  return null
-}
+  return null;
+};
 
-export default PortalModal
+export default PortalModal;

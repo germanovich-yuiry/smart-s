@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import NewForm from "../widgets/Form";
+import PortalModal from "../shared/ui/Portal";
+
+import { useState } from "react";
 
 const Container = styled.div`
   min-width: 360px;
@@ -16,9 +19,13 @@ const Container = styled.div`
 `;
 
 function App() {
+  const [open, setOpen] = useState(true);
   return (
     <Container>
       <NewForm />
+      <PortalModal open={open} onClose={() => setOpen(false)}>
+        <h1>Note!</h1>
+      </PortalModal>
     </Container>
   );
 }
