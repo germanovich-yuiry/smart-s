@@ -5,16 +5,20 @@ import { Button as MuiButton } from "@mui/material";
 import MultyInput from "../shared/ui/MultyInput";
 import Divider from "../shared/ui/Divider";
 
-// Стили для кнопки
+// Styled Components
 const StyledButton = styled(MuiButton)`
   height: 48px;
   width: 100%;
 `;
 
+const StyledTextField = styled(TextField)`
+  width: 100%;
+  margin-bottom: 38px;
+`;
+
 const FormContainer = styled.div`
   width: 98%;
   max-width: 800px;
-
   height: auto;
   padding: 32px;
   border-radius: 12px;
@@ -24,6 +28,10 @@ const FormContainer = styled.div`
   .link {
     color: blue;
     text-decoration: none;
+  }
+
+  .block-wrapper {
+    margin-bottom: 38px;
   }
 
   @media screen and (max-width: 640px) {
@@ -39,13 +47,6 @@ const FormContainer = styled.div`
         font-weight: 500;
         margin-bottom: 36px;
       }
-    }
-
-    .two {
-    }
-    .two-inner {
-    }
-    .one {
     }
 
     .footer-note {
@@ -74,8 +75,6 @@ const FormContainer = styled.div`
       &:first-child {
         margin-right: 30px;
       }
-    }
-    .one {
     }
 
     .form-header {
@@ -122,7 +121,12 @@ const Form = () => {
         <h3 className="note">Change your private information</h3>
         <p className="note-info">
           Please read our{" "}
-          <a className="link" href="https://google.com" target="_blank">
+          <a
+            className="link"
+            href="https://google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             terms of use
           </a>{" "}
           to be informed how we manage your private data.
@@ -132,25 +136,19 @@ const Form = () => {
 
       <form>
         <div className="two">
-          <div className="two-inner">
+          <div className="two-inner block-wrapper">
             <p className="text-label" id="firstname">
               Enter your first name
             </p>
-            <TextField
+            <StyledTextField
               id="firstName"
               label="First name *"
               variant="outlined"
-              sx={{ width: "100%", marginBottom: "38px" }}
             />
           </div>
-          <div className="two-inner">
+          <div className="two-inner block-wrapper">
             <p className="text-label">Enter your email</p>
-            <TextField
-              id="email"
-              label="Email *"
-              variant="outlined"
-              sx={{ width: "100%", marginBottom: "38px" }}
-            />
+            <StyledTextField id="email" label="Email *" variant="outlined" />
           </div>
         </div>
 
@@ -161,38 +159,34 @@ const Form = () => {
         <Divider />
 
         <div className="two">
-          <div className="two-inner">
+          <div className="two-inner block-wrapper">
             <p className="text-label">Country</p>
-            <TextField
+            <StyledTextField
               id="country"
               label="Country *"
               variant="outlined"
-              sx={{ width: "100%", marginBottom: "38px" }}
             />
           </div>
-          <div className="two-inner">
+          <div className="two-inner block-wrapper">
             <p className="text-label">City</p>
-            <TextField
-              label="City *"
-              variant="outlined"
-              sx={{ width: "100%", marginBottom: "38px" }}
-            />
+            <StyledTextField label="City *" variant="outlined" />
           </div>
         </div>
 
-        <div className="one">
+        <div className="one block-wrapper">
           <p className="text-label">Enter your address</p>
-          <TextField
-            label="Address *"
-            variant="outlined"
-            sx={{ width: "100%", marginBottom: "38px" }}
-          />
+          <StyledTextField label="Address *" variant="outlined" />
         </div>
 
         <div className="form-footer">
           <div className="footer-note">
             You may also consider to update your{" "}
-            <a className="link" href="https://google.com" target="_blank">
+            <a
+              className="link"
+              href="https://google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               billing information.
             </a>
           </div>
