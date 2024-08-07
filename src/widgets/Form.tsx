@@ -5,7 +5,6 @@ import { Button as MuiButton } from "@mui/material";
 import MultyInput from "../shared/ui/MultyInput";
 import Divider from "../shared/ui/Divider";
 
-// Styled Components
 const StyledButton = styled(MuiButton)`
   height: 48px;
   width: 100%;
