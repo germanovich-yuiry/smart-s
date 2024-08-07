@@ -4,8 +4,9 @@ import Form from "../widgets/Form";
 const Container = styled.div`
   min-width: 360px;
   max-width: 1980px;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
+  padding: 28px;
   background-color: white;
   display: flex;
   flex-direction: row;
