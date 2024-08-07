@@ -1,43 +1,118 @@
 import styled from "styled-components";
 
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
+import MultyInput from "../shared/ui/MultyInput";
+
 const FormContainer = styled.div`
   width: 95%;
   height: auto;
-  padding: 24px;
+  padding: 32px;
   border-radius: 20px;
   background-color: white;
-  box-shadow: 1px 1px 8px 2px #00bfff;
+  box-shadow: 1px 1px 4px 1px #00bfff;
+
+  .blue-color {
+    color: blue;
+  }
+
+  .divider {
+    height: 0.5px;
+    background-color: black;
+    opacity: 20%;
+    margin-bottom: 28px;
+  }
+
+  @media screen and (max-width: 640px) {
+    .form-header {
+      .note {
+        font-size: 18px;
+        letter-spacing: 0.6px;
+        padding-bottom: 12px;
+      }
+      .note-info {
+        font-size: 16px;
+        opacity: 75%;
+        font-weight: 500;
+        margin-bottom: 36px;
+      }
+    }
+
+    .footer-note {
+      font-size: 16px;
+      letter-spacing: 0.6px;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+
+    .text-label {
+      font-weight: bold;
+      font-size: 14px;
+      letter-spacing: 0.4px;
+      margin-bottom: 18px;
+    }
+  }
 `;
 
 const Form = () => {
   return (
     <FormContainer>
       <div className="form-header">
-        <h3>Change your private information</h3>
-        <p>
-          Please read our <span>terms of use</span> to be informed how we manage
-          your private data.
+        <h3 className="note">Change your private information</h3>
+        <p className="note-info">
+          Please read our <span className="blue-color">terms of use</span> to be
+          informed how we manage your private data.
         </p>
       </div>
+      <div className="divider"></div>
+
       <form>
-        <label>Enter your first name</label>
-        <input type="text" />
-        <label>Enter your email</label>
-        <input type="text" />
-        <label>Bio</label>
-        <input type="text" />
-        <label>Country</label>
-        <input type="text" />
-        <label>City</label>
-        <input type="text" />
-        <label>Enter your address</label>
-        <input type="text" />
+        <p className="text-label" id="firstname">
+          Enter your first name
+        </p>
+        <TextField
+          id="firstName"
+          label="First name *"
+          variant="outlined"
+          sx={{ width: "100%", marginBottom: "38px" }}
+        />
+        <p className="text-label">Enter your email</p>
+        <TextField
+          id="email"
+          label="Email *"
+          variant="outlined"
+          sx={{ width: "100%", marginBottom: "38px" }}
+        />
+        <p className="text-label">Bio</p>
+
+        <MultyInput label={"Bio *"} rows="5" />
+        <p className="text-label">Country</p>
+        <TextField
+          id="country"
+          label="Country *"
+          variant="outlined"
+          sx={{ width: "100%", marginBottom: "38px" }}
+        />
+        <p className="text-label">City</p>
+        <TextField
+          label="City *"
+          variant="outlined"
+          sx={{ width: "100%", marginBottom: "38px" }}
+        />
+        <p className="text-label">Enter your address</p>
+        <TextField
+          label="Address *"
+          variant="outlined"
+          sx={{ width: "100%", marginBottom: "38px" }}
+        />
         <div className="form-footer">
-          <div className="note">
+          <div className="footer-note">
             You may also consider to update your{" "}
-            <span>billing information.</span>
+            <span className="blue-color">billing information.</span>
           </div>
-          <input type="submit" />
+          <Button variant="contained" fullWidth sx={{ height: "48px" }}>
+            Save
+          </Button>
         </div>
       </form>
     </FormContainer>
