@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Form from "../widgets/Form";
+import NewForm from "../widgets/Form";
 
 const Container = styled.div`
   min-width: 360px;
@@ -18,7 +18,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <Form />
+      <NewForm />
     </Container>
   );
 }

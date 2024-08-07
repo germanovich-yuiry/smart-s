@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Field, reduxForm } from "redux-form";
 import TextField from "@mui/material/TextField";
 import { Button as MuiButton } from "@mui/material";
 import MultyInput from "../shared/ui/MultyInput";
@@ -113,7 +113,49 @@ const FormContainer = styled.div`
   }
 `;
 
-const Form = () => {
+const renderTextField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <div>
+    <StyledTextField
+      {...input}
+      label={label}
+      variant="outlined"
+      error={touched && !!error}
+      helperText={touched && error}
+      {...custom}
+    />
+  </div>
+);
+
+const renderAreaField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <div>
+    <MultyInput
+      {...input}
+      label={label}
+      variant="outlined"
+      error={touched && !!error}
+      helperText={touched && error}
+      {...custom}
+    />
+  </div>
+);
+
+const Form = (props) => {
+  const { handleSubmit } = props;
+
+  const onSubmit = (formData) => {
+    console.log("Form data:", formData);
+  };
+
   return (
     <FormContainer>
       <div className="form-header">
@@ -133,48 +175,53 @@ const Form = () => {
       </div>
       <Divider />
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="two">
           <div className="two-inner block-wrapper">
             <p className="text-label" id="firstname">
               Enter your first name
             </p>
-            <StyledTextField
-              id="firstName"
+            <Field
+              name="firstName"
+              component={renderTextField}
               label="First name *"
-              variant="outlined"
             />
           </div>
           <div className="two-inner block-wrapper">
             <p className="text-label">Enter your email</p>
-            <StyledTextField id="email" label="Email *" variant="outlined" />
+            <Field name="email" component={renderTextField} label="Email *" />
           </div>
         </div>
 
         <div className="one">
           <p className="text-label">Bio</p>
-          <MultyInput label={"Bio"} rows="5" />
+          <Field
+            name="bio"
+            component={renderAreaField}
+            label={"Bio"}
+            rows="5"
+          />
         </div>
         <Divider />
 
         <div className="two">
           <div className="two-inner block-wrapper">
             <p className="text-label">Country</p>
-            <StyledTextField
-              id="country"
+            <Field
+              name="country"
+              component={renderTextField}
               label="Country *"
-              variant="outlined"
             />
           </div>
           <div className="two-inner block-wrapper">
             <p className="text-label">City</p>
-            <StyledTextField label="City *" variant="outlined" />
+            <Field name="city" component={renderTextField} label="City *" />
           </div>
         </div>
 
         <div className="one block-wrapper">
           <p className="text-label">Enter your address</p>
-          <StyledTextField label="Address *" variant="outlined" />
+          <Field name="address" component={renderTextField} label="Address *" />
         </div>
 
         <div className="form-footer">
@@ -190,7 +237,7 @@ const Form = () => {
             </a>
           </div>
 
-          <StyledButton variant="contained" className="button">
+          <StyledButton type="submit" variant="contained" className="button">
             Save
           </StyledButton>
         </div>
@@ -199,4 +246,36 @@ const Form = () => {
   );
 };
 
-export default Form;
+const validate = (values) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const errors = {};
+  if (!values.firstName) {
+    errors.firstName = "Enter your name";
+  }
+  if (!values.email) {
+    errors.email = "Enter your email";
+  } else if (!emailRegex.test(values.email)) {
+    errors.email = "Uncorrect email";
+  }
+  if (!values.country) {
+    errors.country = "Enter your country";
+  }
+  if (!values.address) {
+    errors.address = "Enter your address";
+  }
+  if (!values.city) {
+    errors.city = "Enter your city";
+  }
+  if (!values.bio) {
+    errors.bio = "Enter your bio";
+  }
+
+  return errors;
+};
+
+const NewForm = reduxForm({
+  form: "myForm",
+  validate,
+})(Form);
+
+export default NewForm;
