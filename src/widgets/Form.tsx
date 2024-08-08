@@ -205,7 +205,7 @@ const Form = ({ handleSubmit, reset }) => {
             name="bio"
             component={renderAreaField}
             label={"Bio"}
-            rows="5"
+            // rows="5"
           />
         </div>
         <Divider />
@@ -277,9 +277,9 @@ const validate = (values) => {
   if (!values.city) {
     errors.city = "Enter your city";
   }
-  // if (!values.bio) {
-  //   errors.bio = "Enter your bio";
-  // }
+  if (!values.bio) {
+    errors.bio = "Enter your bio";
+  }
 
   return errors;
 };
