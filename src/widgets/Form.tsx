@@ -266,9 +266,9 @@ const validate = (values) => {
   if (!values.city) {
     errors.city = "Enter your city";
   }
-  if (!values.bio) {
-    errors.bio = "Enter your bio";
-  }
+  // if (!values.bio) {
+  //   errors.bio = "Enter your bio";
+  // }
 
   return errors;
 };

@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 
 import { useDispatch, useSelector } from "react-redux";
 import { sendEmailRequest } from "../slices/emailSlice";
+import { setData, clearData } from "../slices/dataSlice";
 
 const Container = styled.div`
   box-shadow: 1px 1px 4px 1px #00bfff;
@@ -74,11 +75,12 @@ const SendForm = (props) => {
   const dispatch = useDispatch();
   const emailStatus = useSelector((state) => state.email.status);
   const emailError = useSelector((state) => state.email.error);
+  const data = useSelector((state) => state.data.data);
 
   const { handleSubmit } = props;
 
   const onSubmit = (formValues) => {
-    dispatch(sendEmailRequest({ userData: formValues }));
+    dispatch(sendEmailRequest({ userData: data }));
   };
 
   return (

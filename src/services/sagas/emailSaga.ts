@@ -13,10 +13,9 @@ function* sendEmail(action) {
     const { userData } = action.payload;
     const timestamp = moment().format("DD/MM/YYYY HH:mm");
 
-    // Настройте EmailJS с вашими данными
-    const serviceID = "service_k25bmr9"; // Замените на ваш ID сервиса
-    const templateID = "template_02y4hye"; // Замените на ваш ID шаблона
-    const userID = "vFtSy7qZN4WD1_TsM"; // Замените на ваш ID пользователя
+    const serviceID = "service_k25bmr9";
+    const templateID = "template_02y4hye";
+    const userID = "vFtSy7qZN4WD1_TsM";
 
     const templateParams = {
       to_email: userData.email,

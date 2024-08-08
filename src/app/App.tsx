@@ -2,9 +2,10 @@ import styled from "styled-components";
 import NewForm from "../widgets/Form";
 import PortalModal from "../shared/ui/Portal";
 
-import { useState } from "react";
 import SendForm from "../widgets/SendForm";
-import EmailForm from "../widgets/emailForm";
+
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal } from "../slices/modalSlice";
 
 const Container = styled.div`
   min-width: 360px;
@@ -21,13 +22,18 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [open, setOpen] = useState(true);
+  const open = useSelector((state) => state.modal.open);
+  const dispatch = useDispatch();
+
+  const closeHandler = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <Container>
       <NewForm />
-      <PortalModal open={open} onClose={() => setOpen(false)}>
+      <PortalModal open={open} onClose={closeHandler}>
         <SendForm />
-        {/* <EmailForm /> */}
       </PortalModal>
     </Container>
   );
