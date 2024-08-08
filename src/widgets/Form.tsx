@@ -64,7 +64,7 @@ const FormContainer = styled.div`
     }
   }
 
-  @media screen and (min-width: 641px) {
+  @media screen and (min-width: 640px) {
     .two {
       width: 100%;
       display: flex;
@@ -152,15 +152,14 @@ const renderAreaField = ({
   </div>
 );
 
-const Form = (props) => {
-  const { handleSubmit } = props;
-
+const Form = ({ handleSubmit, reset }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (formData) => {
     console.log("Form data:", formData);
     dispatch(setData(formData));
     dispatch(openModal());
+    reset();
   };
 
   return (
@@ -244,7 +243,12 @@ const Form = (props) => {
             </a>
           </div>
 
-          <StyledButton type="submit" variant="contained" className="button">
+          <StyledButton
+            type="submit"
+            variant="contained"
+            className="button"
+            style={{ textTransform: "none" }}
+          >
             Save
           </StyledButton>
         </div>

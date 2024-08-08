@@ -2,24 +2,44 @@ import { Field, reduxForm } from "redux-form";
 import styled from "styled-components";
 import { Button as MuiButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
-
 import { useDispatch, useSelector } from "react-redux";
 import { sendEmailRequest } from "../slices/emailSlice";
-import { setData, clearData } from "../slices/dataSlice";
+import { useEffect } from "react";
+
+const StyledTextField = styled(TextField)`
+  flex: 1;
+  margin-right: 20px;
+`;
+
+const renderTextField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <StyledTextField
+    {...input}
+    label={label}
+    variant="outlined"
+    error={touched && !!error}
+    helperText={touched && error}
+    {...custom}
+  />
+);
 
 const Container = styled.div`
   box-shadow: 1px 1px 4px 1px #00bfff;
   background-color: white;
   border-radius: 12px;
-
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   padding: 28px;
 `;
 
 const FormHeader = styled.div`
   margin-bottom: 24px;
 `;
+
 const Title = styled.p`
   font-size: 20px;
   font-weight: 600;
@@ -29,93 +49,77 @@ const Title = styled.p`
 const Note = styled.p`
   font-size: 16px;
   opacity: 75%;
-
   margin-bottom: 36px;
 `;
 
-const Button = styled(MuiButton)`
-  margin-right: 20px;
-  box-sizing: border-box;
-  height: 48px;
-  display: inline-block;
-`;
-
-const Input = styled(TextField)`
-  display: inline-block;
+const InputSection = styled.div`
+  display: flex;
   width: 100%;
-  height: 48px;
-
-  & .MuiInputBase-root {
-    height: 100%;
-  }
 `;
 
 const Space = styled.div`
-  display: inline-block;
   width: 20px;
-  height: 48px;
 `;
 
-const Success = styled.div`
-  color: green;
-  font-size: 28px;
+const Button = styled(MuiButton)`
+  height: 56px;
+  display: inline-block;
 `;
-const InputSection = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const renderInput = ({ input, label, meta: { touched, error } }) => (
-  <Input
-    {...input}
-    label={label}
-    error={touched && Boolean(error)}
-    helperText={touched && error}
-    variant="outlined"
-  />
-);
 
-const SendForm = (props) => {
+const Message = styled.p`
+  padding-top: 6px;
+  padding-left: 8px;
+  color: blue;
+  font-size: 16px;
+`;
+const Error = styled.p`
+  padding-top: 6px;
+  padding-left: 8px;
+  color: red;
+  font-size: 16px;
+`;
+
+const SendForm = ({ handleSubmit, reset }) => {
   const dispatch = useDispatch();
   const emailStatus = useSelector((state) => state.email.status);
   const emailError = useSelector((state) => state.email.error);
   const data = useSelector((state) => state.data.data);
 
-  const { handleSubmit } = props;
-
   const onSubmit = (formValues) => {
     dispatch(sendEmailRequest({ userData: data }));
   };
 
+  useEffect(() => {
+    if (emailStatus === "succeeded") reset();
+  }, [emailStatus]);
+
   return (
     <Container>
-      {emailStatus === "succeeded" ? (
-        <Success>Email sent successfully!</Success>
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormHeader>
-            <Title>Enter Email to send data</Title>
-            <Note>Your data is ready! Please enter a valid email to send</Note>
-          </FormHeader>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormHeader>
+          <Title>Enter Email to send data</Title>
+          <Note>Your data is ready! Please enter a valid email to send</Note>
+        </FormHeader>
 
-          <InputSection>
-            {" "}
-            <Field
-              name="email"
-              component={renderInput}
-              type="email"
-              label="Email"
-            />
-            <Space />
-            <Button type="submit" variant="contained" className="button">
-              Send
-            </Button>
-          </InputSection>
-          {emailStatus === "loading" && <p>Sending...</p>}
-          {emailError && <p>Error: {emailError}</p>}
-          {emailStatus === "succeeded" && <p>Email sent successfully!</p>}
-        </form>
-      )}
+        <InputSection>
+          <Field name="email" component={renderTextField} label="Email *" />
+          <Space />
+          <Button
+            type="submit"
+            variant="contained"
+            className="button"
+            style={{ textTransform: "none" }}
+          >
+            Send
+          </Button>
+        </InputSection>
+
+        {emailStatus === "loading" && <Message>Sending...</Message>}
+        {emailError && <Error>Error: {emailError}</Error>}
+        {emailStatus === "succeeded" && (
+          <Message>Email sent successfully!</Message>
+        )}
+      </form>
     </Container>
   );
 };

@@ -17,10 +17,18 @@ const emailSlice = createSlice({
       state.status = "failed";
       state.error = action.payload;
     },
+    resetEmailStatus(state) {
+      state.status = "idle";
+      state.error = null;
+    },
   },
 });
 
-export const { sendEmailRequest, sendEmailSuccess, sendEmailFailure } =
-  emailSlice.actions;
+export const {
+  sendEmailRequest,
+  sendEmailSuccess,
+  sendEmailFailure,
+  resetEmailStatus,
+} = emailSlice.actions;
 
 export default emailSlice.reducer;

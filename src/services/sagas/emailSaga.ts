@@ -1,4 +1,5 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, delay, takeLatest } from "redux-saga/effects";
+import { resetEmailStatus } from "../../slices/emailSlice";
 import emailjs from "emailjs-com";
 
 import {
@@ -25,6 +26,9 @@ function* sendEmail(action) {
 
     yield call(emailjs.send, serviceID, templateID, templateParams, userID);
     yield put(sendEmailSuccess());
+    yield delay(5000);
+
+    yield put(resetEmailStatus());
   } catch (error) {
     yield put(sendEmailFailure(error.message));
   }
