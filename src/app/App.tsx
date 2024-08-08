@@ -4,6 +4,7 @@ import PortalModal from "../shared/ui/Portal";
 
 import { useState } from "react";
 import SendForm from "../widgets/SendForm";
+import EmailForm from "../widgets/emailForm";
 
 const Container = styled.div`
   min-width: 360px;
@@ -26,6 +27,7 @@ function App() {
       <NewForm />
       <PortalModal open={open} onClose={() => setOpen(false)}>
         <SendForm />
+        {/* <EmailForm /> */}
       </PortalModal>
     </Container>
   );

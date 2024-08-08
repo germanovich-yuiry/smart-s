@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { Button as MuiButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
+import { useDispatch, useSelector } from "react-redux";
+import { sendEmailRequest } from "../slices/emailSlice";
+
 const Container = styled.div`
   box-shadow: 1px 1px 4px 1px #00bfff;
   background-color: white;
@@ -68,10 +71,14 @@ const renderInput = ({ input, label, meta: { touched, error } }) => (
 );
 
 const SendForm = (props) => {
+  const dispatch = useDispatch();
+  const emailStatus = useSelector((state) => state.email.status);
+  const emailError = useSelector((state) => state.email.error);
+
   const { handleSubmit } = props;
 
   const onSubmit = (formValues) => {
-    console.log("Form Values:", formValues);
+    dispatch(sendEmailRequest({ userData: formValues }));
   };
 
   return (
@@ -95,6 +102,9 @@ const SendForm = (props) => {
             Send
           </Button>
         </InputSection>
+        {emailStatus === "loading" && <p>Sending...</p>}
+        {emailError && <p>Error: {emailError}</p>}
+        {emailStatus === "succeeded" && <p>Email sent successfully!</p>}
       </form>
     </Container>
   );
