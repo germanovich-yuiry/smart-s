@@ -56,6 +56,10 @@ const Space = styled.div`
   height: 48px;
 `;
 
+const Success = styled.div`
+  color: green;
+  font-size: 28px;
+`;
 const InputSection = styled.div`
   display: flex;
   flex-direction: row;
@@ -85,29 +89,33 @@ const SendForm = (props) => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormHeader>
-          <Title>Enter Email to send data</Title>
-          <Note>Your data is ready! Please enter a valid email to send</Note>
-        </FormHeader>
+      {emailStatus === "succeeded" ? (
+        <Success>Email sent successfully!</Success>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormHeader>
+            <Title>Enter Email to send data</Title>
+            <Note>Your data is ready! Please enter a valid email to send</Note>
+          </FormHeader>
 
-        <InputSection>
-          {" "}
-          <Field
-            name="email"
-            component={renderInput}
-            type="email"
-            label="Email"
-          />
-          <Space />
-          <Button type="submit" variant="contained" className="button">
-            Send
-          </Button>
-        </InputSection>
-        {emailStatus === "loading" && <p>Sending...</p>}
-        {emailError && <p>Error: {emailError}</p>}
-        {emailStatus === "succeeded" && <p>Email sent successfully!</p>}
-      </form>
+          <InputSection>
+            {" "}
+            <Field
+              name="email"
+              component={renderInput}
+              type="email"
+              label="Email"
+            />
+            <Space />
+            <Button type="submit" variant="contained" className="button">
+              Send
+            </Button>
+          </InputSection>
+          {emailStatus === "loading" && <p>Sending...</p>}
+          {emailError && <p>Error: {emailError}</p>}
+          {emailStatus === "succeeded" && <p>Email sent successfully!</p>}
+        </form>
+      )}
     </Container>
   );
 };

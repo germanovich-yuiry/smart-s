@@ -4,6 +4,9 @@ import TextField from "@mui/material/TextField";
 import { Button as MuiButton } from "@mui/material";
 import MultyInput from "../shared/ui/MultyInput";
 import Divider from "../shared/ui/Divider";
+import { useDispatch } from "react-redux";
+import { setData } from "../slices/dataSlice";
+import { openModal } from "../slices/modalSlice";
 
 const StyledButton = styled(MuiButton)`
   height: 48px;
@@ -152,8 +155,12 @@ const renderAreaField = ({
 const Form = (props) => {
   const { handleSubmit } = props;
 
+  const dispatch = useDispatch();
+
   const onSubmit = (formData) => {
     console.log("Form data:", formData);
+    dispatch(setData(formData));
+    dispatch(openModal());
   };
 
   return (
