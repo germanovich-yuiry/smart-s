@@ -18,7 +18,7 @@ const OverlayContainer = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background-color: gray;
   opacity: 1;
   z-index: 2;
 `;
@@ -32,7 +32,8 @@ const CloseButton = styled.button`
   right: 10px;
   cursor: pointer;
   z-index: 3;
-  color: blue;
+  color: white;
+  text-shadow: white 1px 0 10px;
 
   opacity: 80%;
 `;
@@ -43,6 +44,7 @@ const PortalModal: FC<Props> = ({ children, open, onClose }) => {
   const Overlay: FC<{ children: React.ReactNode }> = ({ children }) => {
     useEffect(() => {
       document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
       return () => {
         document.body.style.overflow = "auto";
       };

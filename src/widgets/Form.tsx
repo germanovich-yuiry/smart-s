@@ -142,7 +142,7 @@ const renderAreaField = ({
       {...input}
       label={label}
       variant="outlined"
-      error={touched && !!error}
+      error={!!error}
       helperText={touched && error}
       {...custom}
     />
