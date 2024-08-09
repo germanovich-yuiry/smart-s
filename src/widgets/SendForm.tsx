@@ -1,36 +1,21 @@
 import React, { useEffect } from "react";
-import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import styled from "styled-components";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
+
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button as MuiButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
-import { IEmailState, sendEmailRequest } from "../slices/emailSlice";
+import { sendEmailRequest } from "../slices/emailSlice";
+
 import { IRenderTextFieldProps } from "../types/RenderTextField.type";
-import { IData } from "../types/Data.type";
+
 import { validateEmail as validate } from "../helpers/emailValidate";
 
-const StyledTextField = styled(TextField)`
-  flex: 1;
-  margin-right: 20px;
-`;
+import SubmitButton from "../shared/ui/SubmitButton";
+import StatusMessage from "../shared/ui/StatusMessage";
 
-const renderTextField: React.FC<IRenderTextFieldProps> = ({
-  input,
-  label,
-  meta: { touched, error },
-  ...custom
-}) => (
-  <StyledTextField
-    {...input}
-    label={label}
-    variant="outlined"
-    error={touched && !!error}
-    helperText={touched && error}
-    {...custom}
-  />
-);
+import { RootState } from "../app/store";
 
 const Container = styled.div`
   box-shadow: 1px 1px 4px 1px #00bfff;
@@ -41,9 +26,6 @@ const Container = styled.div`
   padding: 28px;
 `;
 
-const Space = styled.div`
-  width: 20px;
-`;
 const FormHeader = styled.div`
   margin-bottom: 24px;
 `;
@@ -65,24 +47,30 @@ const InputSection = styled.div`
   width: 100%;
 `;
 
-const Button = styled(MuiButton)`
-  height: 56px;
-  display: inline-block;
+const StyledTextField = styled(TextField)`
+  flex: 1;
+  margin-right: 20px;
 `;
 
-const Message = styled.p`
-  padding-top: 6px;
-  padding-left: 8px;
-  color: blue;
-  font-size: 16px;
+const Space = styled.div`
+  width: 20px;
 `;
 
-const Error = styled.p`
-  padding-top: 6px;
-  padding-left: 8px;
-  color: red;
-  font-size: 16px;
-`;
+const renderTextField: React.FC<IRenderTextFieldProps> = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <StyledTextField
+    {...input}
+    label={label}
+    variant="outlined"
+    error={touched && !!error}
+    helperText={touched && error}
+    {...custom}
+  />
+);
 
 interface SendFormProps extends InjectedFormProps {
   reset: () => void;
@@ -90,13 +78,9 @@ interface SendFormProps extends InjectedFormProps {
 
 const SendForm: React.FC<SendFormProps> = ({ handleSubmit, reset }) => {
   const dispatch = useDispatch();
-  const emailStatus = useSelector(
-    (state: { email: IEmailState }) => state.email.status
-  );
-  const emailError = useSelector(
-    (state: { email: IEmailState }) => state.email.error
-  );
-  const data = useSelector((state: { data: IData }) => state.data);
+  const emailStatus = useSelector((state: RootState) => state.email.status);
+  const emailError = useSelector((state: RootState) => state.email.error);
+  const data = useSelector((state: RootState) => state.data);
 
   const onSubmit = () => {
     dispatch(sendEmailRequest({ userData: data }));
@@ -117,20 +101,10 @@ const SendForm: React.FC<SendFormProps> = ({ handleSubmit, reset }) => {
         <InputSection>
           <Field name="email" component={renderTextField} label="Email *" />
           <Space />
-          <Button
-            type="submit"
-            variant="contained"
-            style={{ textTransform: "none" }}
-          >
-            Send
-          </Button>
+          <SubmitButton />
         </InputSection>
 
-        {emailStatus === "loading" && <Message>Sending...</Message>}
-        {emailError && <Error>Error: {emailError}</Error>}
-        {emailStatus === "succeeded" && (
-          <Message>Email sent successfully!</Message>
-        )}
+        <StatusMessage emailStatus={emailStatus} emailError={emailError} />
       </form>
     </Container>
   );

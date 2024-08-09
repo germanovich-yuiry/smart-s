@@ -1,19 +1,15 @@
 import styled from "styled-components";
 import { Field, reduxForm } from "redux-form";
 import TextField from "@mui/material/TextField";
-import { Button as MuiButton } from "@mui/material";
 import MultyInput from "../shared/ui/MultyInput";
 import Divider from "../shared/ui/Divider";
 import { useDispatch } from "react-redux";
 import { setData } from "../slices/dataSlice";
 import { openModal } from "../slices/modalSlice";
 
-import { formValidate as validate } from "../helpers/formValidate";
+import SaveButton from "../shared/ui/SaveButton";
 
-const StyledButton = styled(MuiButton)`
-  height: 48px;
-  width: 100%;
-`;
+import { formValidate as validate } from "../helpers/formValidate";
 
 const StyledTextField = styled(TextField)`
   width: 100%;
@@ -63,6 +59,10 @@ const FormContainer = styled.div`
       font-size: 14px;
       letter-spacing: 0.4px;
       margin-bottom: 18px;
+    }
+
+    .button {
+      width: 100%;
     }
   }
 
@@ -244,15 +244,7 @@ const Form = ({ handleSubmit, reset }) => {
               billing information.
             </a>
           </div>
-
-          <StyledButton
-            type="submit"
-            variant="contained"
-            className="button"
-            style={{ textTransform: "none" }}
-          >
-            Save
-          </StyledButton>
+          <SaveButton className="button" />
         </div>
       </form>
     </FormContainer>
