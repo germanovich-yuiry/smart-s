@@ -1,19 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { IData } from "../types/Data.type";
 
-const initialState = {
-  data: {},
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface IDataState {
+  data: IData | null;
+}
+
+const initialState: IDataState = {
+  data: null,
 };
 
 const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setData: (state, action) => {
+    setData: (state, action: PayloadAction<IData>) => {
       state.data = action.payload;
+    },
+    clearData: (state) => {
+      state.data = null;
     },
   },
 });
 
 export const { setData, clearData } = dataSlice.actions;
-
 export default dataSlice.reducer;

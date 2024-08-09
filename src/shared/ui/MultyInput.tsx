@@ -1,5 +1,6 @@
+import React from "react";
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 
 const InputContainer = styled(TextField)`
   .MuiInputLabel-root.Mui-focused {
@@ -11,7 +12,21 @@ const Container = styled.div`
   position: relative;
 `;
 
-const MultyInput = ({ label, rows, error, helperText, ...props }) => {
+interface MultyInputProps
+  extends Omit<TextFieldProps, "label" | "multiline" | "rows"> {
+  label: string;
+  rows?: number;
+  error?: boolean;
+  helperText?: string;
+}
+
+const MultyInput: React.FC<MultyInputProps> = ({
+  label,
+  rows,
+  error,
+  helperText,
+  ...props
+}) => {
   return (
     <Container>
       <InputContainer

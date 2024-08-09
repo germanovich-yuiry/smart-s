@@ -1,11 +1,11 @@
-import PropTypes from "prop-types"
-import type { FC } from "react"
+import PropTypes from "prop-types";
+import type { FC } from "react";
 
-import styled from "styled-components"
+import styled from "styled-components";
 
 interface ITooltipProps {
-  children: React.ReactNode
-  content: string
+  children: React.ReactNode;
+  content: string;
 }
 
 const TooltipWrapper = styled.span`
@@ -14,7 +14,7 @@ const TooltipWrapper = styled.span`
   display: inline-block;
   cursor: pointer;
   opacity: 0.8;
-`
+`;
 
 const TooltipText = styled.a`
   visibility: hidden;
@@ -41,7 +41,7 @@ const TooltipText = styled.a`
     opacity: 1;
     transition: opacity 0.4s ease-in;
   }
-`
+`;
 
 const Tooltip: FC<ITooltipProps> = ({ children, content }) => {
   return (
@@ -51,12 +51,12 @@ const Tooltip: FC<ITooltipProps> = ({ children, content }) => {
         {content}
       </TooltipText>
     </TooltipWrapper>
-  )
-}
+  );
+};
 
 Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
   content: PropTypes.string.isRequired,
-}
+};
 
-export default Tooltip
+export default Tooltip;

@@ -1,11 +1,15 @@
-import styled from "styled-components";
-import NewForm from "../widgets/Form";
-import PortalModal from "../shared/ui/Portal";
-
-import SendForm from "../widgets/SendForm";
+import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+
+import styled from "styled-components";
+
 import { closeModal } from "../slices/modalSlice";
+import { RootState } from "./store";
+
+import NewForm from "../widgets/Form";
+import SendForm from "../widgets/SendForm";
+import PortalModal from "../shared/ui/Portal";
 
 const Container = styled.div`
   min-width: 360px;
@@ -21,8 +25,8 @@ const Container = styled.div`
   font-family: "Regular";
 `;
 
-function App() {
-  const open = useSelector((state) => state.modal.open);
+const App: React.FC = () => {
+  const open = useSelector((state: RootState) => state.modal.open);
   const dispatch = useDispatch();
 
   const closeHandler = () => {
@@ -37,6 +41,6 @@ function App() {
       </PortalModal>
     </Container>
   );
-}
+};
 
 export default App;

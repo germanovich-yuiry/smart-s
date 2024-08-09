@@ -7,9 +7,12 @@ import {
   sendEmailSuccess,
   sendEmailFailure,
 } from "../../slices/emailSlice";
+
+import { sendEmailRequestType } from "../../slices/emailSlice";
+
 import moment from "moment";
 
-function* sendEmail(action) {
+function* sendEmail(action: sendEmailRequestType) {
   try {
     const { userData } = action.payload;
     const timestamp = moment().format("DD/MM/YYYY HH:mm");

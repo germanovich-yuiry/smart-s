@@ -1,17 +1,22 @@
-import { Field, reduxForm } from "redux-form";
+import React, { useEffect } from "react";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Button as MuiButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useDispatch, useSelector } from "react-redux";
-import { sendEmailRequest } from "../slices/emailSlice";
-import { useEffect } from "react";
+
+import { IEmailState, sendEmailRequest } from "../slices/emailSlice";
+import { IRenderTextFieldProps } from "../types/RenderTextField.type";
+import { IData } from "../types/Data.type";
+import { validateEmail as validate } from "../helpers/emailValidate";
 
 const StyledTextField = styled(TextField)`
   flex: 1;
   margin-right: 20px;
 `;
 
-const renderTextField = ({
+const renderTextField: React.FC<IRenderTextFieldProps> = ({
   input,
   label,
   meta: { touched, error },
@@ -36,6 +41,9 @@ const Container = styled.div`
   padding: 28px;
 `;
 
+const Space = styled.div`
+  width: 20px;
+`;
 const FormHeader = styled.div`
   margin-bottom: 24px;
 `;
@@ -57,10 +65,6 @@ const InputSection = styled.div`
   width: 100%;
 `;
 
-const Space = styled.div`
-  width: 20px;
-`;
-
 const Button = styled(MuiButton)`
   height: 56px;
   display: inline-block;
@@ -72,6 +76,7 @@ const Message = styled.p`
   color: blue;
   font-size: 16px;
 `;
+
 const Error = styled.p`
   padding-top: 6px;
   padding-left: 8px;
@@ -79,19 +84,27 @@ const Error = styled.p`
   font-size: 16px;
 `;
 
-const SendForm = ({ handleSubmit, reset }) => {
-  const dispatch = useDispatch();
-  const emailStatus = useSelector((state) => state.email.status);
-  const emailError = useSelector((state) => state.email.error);
-  const data = useSelector((state) => state.data.data);
+interface SendFormProps extends InjectedFormProps {
+  reset: () => void;
+}
 
-  const onSubmit = (formValues) => {
+const SendForm: React.FC<SendFormProps> = ({ handleSubmit, reset }) => {
+  const dispatch = useDispatch();
+  const emailStatus = useSelector(
+    (state: { email: IEmailState }) => state.email.status
+  );
+  const emailError = useSelector(
+    (state: { email: IEmailState }) => state.email.error
+  );
+  const data = useSelector((state: { data: IData }) => state.data);
+
+  const onSubmit = () => {
     dispatch(sendEmailRequest({ userData: data }));
   };
 
   useEffect(() => {
     if (emailStatus === "succeeded") reset();
-  }, [emailStatus]);
+  }, [emailStatus, reset]);
 
   return (
     <Container>
@@ -107,7 +120,6 @@ const SendForm = ({ handleSubmit, reset }) => {
           <Button
             type="submit"
             variant="contained"
-            className="button"
             style={{ textTransform: "none" }}
           >
             Send
@@ -122,16 +134,6 @@ const SendForm = ({ handleSubmit, reset }) => {
       </form>
     </Container>
   );
-};
-
-const validate = (values) => {
-  const errors = {};
-  if (!values.email) {
-    errors.email = "Email is required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-    errors.email = "Invalid email address";
-  }
-  return errors;
 };
 
 const Form = reduxForm({

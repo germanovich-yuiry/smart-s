@@ -1,13 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IData } from "../types/Data.type";
+export interface IEmailState {
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
+const initialState: IEmailState = {
+  status: "idle",
+  error: null,
+};
 
 const emailSlice = createSlice({
   name: "email",
-  initialState: {
-    status: "idle",
-    error: null,
-  },
+  initialState,
   reducers: {
-    sendEmailRequest(state) {
+    sendEmailRequest(state, action: PayloadAction<{ userData: IData }>) {
       state.status = "loading";
     },
     sendEmailSuccess(state) {
@@ -15,7 +22,7 @@ const emailSlice = createSlice({
     },
     sendEmailFailure(state, action) {
       state.status = "failed";
-      state.error = action.payload;
+      state.error = action.payload.error;
     },
     resetEmailStatus(state) {
       state.status = "idle";
@@ -30,5 +37,8 @@ export const {
   sendEmailFailure,
   resetEmailStatus,
 } = emailSlice.actions;
+
+export type sendEmailRequestType = ReturnType<typeof sendEmailRequest>;
+export type sendEmailFailureType = ReturnType<typeof sendEmailFailure>;
 
 export default emailSlice.reducer;
