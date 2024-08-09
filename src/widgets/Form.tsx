@@ -1,20 +1,23 @@
+import React, { FC } from "react";
+import { useDispatch } from "react-redux";
+import { Field, reduxForm, InjectedFormProps } from "redux-form";
+
 import styled from "styled-components";
-import { FC } from "react";
-import { Field, reduxForm } from "redux-form";
+
 import TextField from "@mui/material/TextField";
+
 import MultyInput from "../shared/ui/MultyInput";
 import Divider from "../shared/ui/Divider";
-import { useDispatch } from "react-redux";
-import { setData } from "../slices/dataSlice";
-import { openModal } from "../slices/modalSlice";
-import { IRenderTextFieldProps } from "../types/Redux-form-field.type";
-import { IRenderAreaFieldProps } from "../types/Redux-form-field.type";
-
-import { IData } from "../types/Data.type";
-
 import SaveButton from "../shared/ui/SaveButton";
 
-import { InjectedFormProps } from "redux-form";
+import { IData } from "../types/Data.type";
+import {
+  IRenderTextFieldProps,
+  IRenderAreaFieldProps,
+} from "../types/Redux-form-field.type";
+
+import { setData } from "../slices/dataSlice";
+import { openModal } from "../slices/modalSlice";
 
 import { formValidate as validate } from "../helpers/formValidate";
 
