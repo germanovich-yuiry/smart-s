@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 
 import { sendEmailRequest } from "../slices/emailSlice";
 
-import { IRenderTextFieldProps } from "../types/RenderTextField.type";
+import { IRenderTextFieldProps } from "../types/Redux-form-field.type";
 
 import { validateEmail as validate } from "../helpers/emailValidate";
 

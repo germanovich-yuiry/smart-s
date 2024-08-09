@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FC } from "react";
 import { Field, reduxForm } from "redux-form";
 import TextField from "@mui/material/TextField";
 import MultyInput from "../shared/ui/MultyInput";
@@ -6,8 +7,14 @@ import Divider from "../shared/ui/Divider";
 import { useDispatch } from "react-redux";
 import { setData } from "../slices/dataSlice";
 import { openModal } from "../slices/modalSlice";
+import { IRenderTextFieldProps } from "../types/Redux-form-field.type";
+import { IRenderAreaFieldProps } from "../types/Redux-form-field.type";
+
+import { IData } from "../types/Data.type";
 
 import SaveButton from "../shared/ui/SaveButton";
+
+import { InjectedFormProps } from "redux-form";
 
 import { formValidate as validate } from "../helpers/formValidate";
 
@@ -118,25 +125,7 @@ const FormContainer = styled.div`
   }
 `;
 
-const renderTextField = ({
-  input,
-  label,
-  meta: { touched, error },
-  ...custom
-}) => (
-  <div>
-    <StyledTextField
-      {...input}
-      label={label}
-      variant="outlined"
-      error={touched && !!error}
-      helperText={touched && error}
-      {...custom}
-    />
-  </div>
-);
-
-const renderAreaField = ({
+const renderAreaField: React.FC<IRenderAreaFieldProps> = ({
   input,
   label,
   meta: { touched, error },
@@ -154,11 +143,32 @@ const renderAreaField = ({
   </div>
 );
 
-const Form = ({ handleSubmit, reset }) => {
+const renderTextField: React.FC<IRenderTextFieldProps> = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <div>
+    <StyledTextField
+      {...input}
+      label={label}
+      variant="outlined"
+      error={touched && !!error}
+      helperText={touched && error}
+      {...custom}
+    />
+  </div>
+);
+
+interface FormProps extends InjectedFormProps {
+  reset: () => void;
+}
+
+const Form: FC<FormProps> = ({ handleSubmit, reset }) => {
   const dispatch = useDispatch();
 
-  const onSubmit = (formData) => {
-    console.log("Form data:", formData);
+  const onSubmit = (formData: IData) => {
     dispatch(setData(formData));
     dispatch(openModal());
     reset();
@@ -203,12 +213,7 @@ const Form = ({ handleSubmit, reset }) => {
 
         <div className="one">
           <p className="text-label">Bio</p>
-          <Field
-            name="bio"
-            component={renderAreaField}
-            label={"Bio"}
-            // rows="5"
-          />
+          <Field name="bio" component={renderAreaField} label={"Bio"} />
         </div>
         <Divider />
 
@@ -234,7 +239,7 @@ const Form = ({ handleSubmit, reset }) => {
 
         <div className="form-footer">
           <div className="footer-note">
-            You may also consider to update your{" "}
+            You may also consider updating your{" "}
             <a
               className="link"
               href="https://google.com"

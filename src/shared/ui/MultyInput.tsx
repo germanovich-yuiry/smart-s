@@ -17,7 +17,7 @@ interface MultyInputProps
   label: string;
   rows?: number;
   error?: boolean;
-  helperText?: string;
+  helperText?: string | false;
 }
 
 const MultyInput: React.FC<MultyInputProps> = ({
