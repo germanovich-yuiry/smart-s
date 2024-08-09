@@ -161,11 +161,7 @@ const renderTextField: React.FC<IRenderTextFieldProps> = ({
   </div>
 );
 
-interface FormProps extends InjectedFormProps {
-  reset: () => void;
-}
-
-const Form: FC<FormProps> = ({ handleSubmit, reset }) => {
+const Form: FC<InjectedFormProps<IData>> = ({ handleSubmit, reset }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (formData: IData) => {

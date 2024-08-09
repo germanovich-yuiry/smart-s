@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import { TextField, TextFieldProps } from "@mui/material";
 
@@ -20,7 +20,7 @@ interface MultyInputProps
   helperText?: string | false;
 }
 
-const MultyInput: React.FC<MultyInputProps> = ({
+const MultyInput: FC<MultyInputProps> = ({
   label,
   rows,
   error,
