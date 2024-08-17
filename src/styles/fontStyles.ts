@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components"
-import regular from "../assets/fonts/Nunito-Regular.ttf"
+import { createGlobalStyle } from "styled-components";
+import regular from "../assets/fonts/Nunito-Regular.ttf";
 
 const FontStyles = createGlobalStyle`
 
@@ -8,6 +8,6 @@ const FontStyles = createGlobalStyle`
   src: url(${regular}) format('TrueType'),
 
 }
-`
+`;
 
-export default FontStyles
+export default FontStyles;

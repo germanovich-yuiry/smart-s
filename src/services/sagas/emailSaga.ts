@@ -22,6 +22,7 @@ function* sendEmail(action: sendEmailRequestType) {
       to_email: userData.email,
       user_data: JSON.stringify(userData),
       timestamp,
+      from_name: "YuriyEG",
     };
 
     yield call(emailjs.send, serviceID, templateID, templateParams, userID);
