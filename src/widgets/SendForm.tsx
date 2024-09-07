@@ -15,7 +15,11 @@ import { validateEmail as validate } from "../helpers/emailValidate";
 import SubmitButton from "../shared/ui/SubmitButton";
 import StatusMessage from "../shared/ui/StatusMessage";
 
-import { RootState } from "../app/store";
+import {
+  selectEmailError,
+  selectEmailStatus,
+} from "../slices/email/emailSelectors";
+import { selectData } from "../slices/data/dataSelectors";
 
 const Container = styled.div`
   box-shadow: 1px 1px 4px 1px #00bfff;
@@ -78,12 +82,11 @@ interface SendFormProps extends InjectedFormProps {
 
 const SendForm: React.FC<SendFormProps> = ({ handleSubmit, reset }) => {
   const dispatch = useDispatch();
-  const emailStatus = useSelector((state: RootState) => state.email.status);
-  const emailError = useSelector((state: RootState) => state.email.error);
-  const data = useSelector((state: RootState) => state.data);
-
+  const emailStatus = useSelector(selectEmailStatus);
+  const emailError = useSelector(selectEmailError);
+  const data = useSelector(selectData);
   const onSubmit = () => {
-    if (data.data) dispatch(sendEmailRequest({ userData: data.data }));
+    if (data) dispatch(sendEmailRequest({ userData: data }));
   };
 
   useEffect(() => {
