@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TextField from "@mui/material/TextField";
 
-import { sendEmailRequest } from "../slices/emailSlice";
+import { sendEmailRequest } from "../slices/email/emailSlice";
 
 import { IRenderTextFieldProps } from "../types/Redux-form-field.type";
 
@@ -83,7 +83,7 @@ const SendForm: React.FC<SendFormProps> = ({ handleSubmit, reset }) => {
   const data = useSelector((state: RootState) => state.data);
 
   const onSubmit = () => {
-    dispatch(sendEmailRequest({ userData: data }));
+    if (data.data) dispatch(sendEmailRequest({ userData: data.data }));
   };
 
   useEffect(() => {
