@@ -1,11 +1,10 @@
 import React from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import styled from "styled-components";
 
-import { closeModal } from "../slices/modalSlice";
-import { RootState } from "./store";
+import { closeModal } from "../slices/modal/modalSlice";
+
+import { selectModalOpen } from "../slices/modal/modalSelectors";
 
 import NewForm from "../widgets/Form";
 import SendForm from "../widgets/SendForm";
@@ -26,7 +25,7 @@ const Container = styled.div`
 `;
 
 const App: React.FC = () => {
-  const open = useSelector((state: RootState) => state.modal.open);
+  const open = useSelector(selectModalOpen);
   const dispatch = useDispatch();
 
   const closeHandler = () => {

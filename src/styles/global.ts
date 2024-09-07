@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import normalize from "styled-normalize";
 
 const GlobalStyles = createGlobalStyle`
+
   ${normalize}
 
   html {
@@ -16,7 +17,6 @@ const GlobalStyles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: #00BFFF;
     
-
   }
 
   * {
@@ -29,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   }
+    
 `;
 
 export default GlobalStyles;

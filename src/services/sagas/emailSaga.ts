@@ -9,9 +9,9 @@ import {
   sendEmailRequest,
   sendEmailSuccess,
   sendEmailFailure,
-} from "../../slices/emailSlice";
+} from "../../slices/email/emailSlice";
 
-import { sendEmailRequestType } from "../../slices/emailSlice";
+import { sendEmailRequestType } from "../../slices/email/emailSlice";
 
 function* sendEmail(action: sendEmailRequestType) {
   try {

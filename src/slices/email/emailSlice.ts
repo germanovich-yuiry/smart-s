@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IData } from "../types/Data.type";
+import { IData } from "../../types/Data.type";
 
 export interface IEmailState {
   status: "idle" | "loading" | "succeeded" | "failed";

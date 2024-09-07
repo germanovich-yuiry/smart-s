@@ -16,8 +16,8 @@ import {
   IRenderAreaFieldProps,
 } from "../types/Redux-form-field.type";
 
-import { setData } from "../slices/dataSlice";
-import { openModal } from "../slices/modalSlice";
+import { setData } from "../slices/data/dataSlice";
+import { openModal } from "../slices/modal/modalSlice";
 
 import { formValidate as validate } from "../helpers/formValidate";
 
